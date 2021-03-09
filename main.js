@@ -44,6 +44,11 @@ cartSummary.addEventListener("click", () => {
     buttonDel.textContent = "Usuń";
     buttonDel.addEventListener("click", (e) => {
       e.target.parentNode.remove();
+      productsInCart.splice(
+        productsInCart.indexOf(e.target.parentNode.firstChild.textContent),
+        1
+      );
+      renderProductsInCart();
     });
     renderDivs(item).appendChild(buttonDel);
 
