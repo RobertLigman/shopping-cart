@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
 body {
     max-width: 1200px;
     margin: auto;
@@ -8,9 +13,12 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    position: relative;
+    border-bottom: 1px solid #333;
 }
 
 .main {
+    margin-top: 30px;
     display: flex;
     gap: 10px;
 }
@@ -44,4 +52,25 @@ body {
 .product__add-to-cart:hover {
     background-color: #fff;
     color: #f18304;
+}
+
+.cart__container {
+    position: absolute;
+    top: 60px;
+    display: none;
+    opacity: 0;
+    /* display: flex;
+    opacity: 1; */
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.cart__button:focus~.cart__container {
+    display: flex;
+    opacity: 1;
+    /* display: block; */
 }
