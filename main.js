@@ -1,5 +1,6 @@
 const main = document.querySelector(".main");
 const cart = document.querySelector(".cart");
+const cartSummary = document.querySelector(".cart__summary");
 const productList = [
   { name: "Produkt1", price: "31" },
   { name: "Prod2", price: "2223" },
@@ -16,6 +17,17 @@ const renderProductsInCart = () => {
     cart.appendChild(div);
   });
 };
+cartSummary.addEventListener("click", () => {
+  main.innerHTML = "";
+  productsInCart.forEach((el) => {
+    main.textContent += el.name + " " + el.price;
+  });
+  main.textContent +=
+    "Wartość koszyka " +
+    productsInCart.reduce((acc, currentVal) => {
+      return acc.price + currentVal.price;
+    });
+});
 const addToCart = (name, price) => {
   //   console.log(name, +price, "działa");
   price = +price;
