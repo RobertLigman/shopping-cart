@@ -3,6 +3,8 @@ const cart = document.querySelector(".cart");
 const productList = [
   { name: "Produkt1", price: "31" },
   { name: "Prod2", price: "2223" },
+  { name: "Prod3", price: "2113" },
+  { name: "Prod4", price: "2223" },
 ];
 const productsInCart = [];
 const renderProductsInCart = () => {
@@ -35,12 +37,16 @@ productList.forEach((item) => {
   const productPrice = document.createElement("p");
   productPrice.classList.add("product__price");
   productPrice.textContent = item.price;
+  const currency = document.createElement("span");
+  currency.classList.add("product__currency");
+  currency.textContent = "zł";
+
   const buttonAdd = document.createElement("button");
   buttonAdd.classList.add("product__add-to-cart");
   buttonAdd.textContent = "Dodaj do koszyka";
-  buttonAdd.addEventListener("click", () =>
-    addToCart(productName.textContent, productPrice.textContent)
-  );
+  buttonAdd.addEventListener("click", () => addToCart(item.name, item.price));
+
+  productPrice.appendChild(currency);
   main.appendChild(div);
   div.appendChild(productName);
   div.appendChild(productPrice);
