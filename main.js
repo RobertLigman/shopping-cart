@@ -19,14 +19,37 @@ const renderProductsInCart = () => {
 };
 cartSummary.addEventListener("click", () => {
   main.innerHTML = "";
-  productsInCart.forEach((el) => {
-    main.textContent += el.name + " " + el.price;
-  });
-  main.textContent +=
-    "Wartość koszyka " +
-    productsInCart.reduce((acc, currentVal) => {
-      return acc.price + currentVal.price;
+  productsInCart.forEach((item) => {
+    const div = document.createElement("div");
+    div.classList.add("product");
+    const productName = document.createElement("h3");
+    productName.classList.add("product__name");
+    productName.textContent = item.name;
+
+    const productPrice = document.createElement("p");
+    productPrice.classList.add("product__price");
+    productPrice.textContent = item.price;
+    const currency = document.createElement("span");
+    currency.classList.add("product__currency");
+    currency.textContent = "zł";
+
+    const buttonDel = document.createElement("button");
+    buttonDel.classList.add("product__rm-from-cart");
+    buttonDel.textContent = "Usuń";
+    buttonDel.addEventListener("click", (e) => {
+      e.target.parentNode.remove();
     });
+    main.appendChild(div);
+    div.appendChild(productName);
+    div.appendChild(productPrice);
+    div.appendChild(buttonDel);
+  });
+  console.log(
+    "Wartość koszyka " +
+      productsInCart.reduce((acc, currentVal) => {
+        return acc.price + currentVal.price;
+      })
+  );
 });
 const addToCart = (name, price) => {
   //   console.log(name, +price, "działa");
