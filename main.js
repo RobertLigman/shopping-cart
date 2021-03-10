@@ -44,11 +44,12 @@ const renderProductsInCart = () => {
         1
       );
       renderProductsInCart();
+      renderCartInMainComponent();
     });
     div.appendChild(buttonDel);
   });
 };
-cartSummary.addEventListener("click", () => {
+const renderCartInMainComponent = () => {
   main.innerHTML = "";
   productsInCart.forEach((item) => {
     const buttonDel = document.createElement("button");
@@ -66,13 +67,22 @@ cartSummary.addEventListener("click", () => {
 
     // div.appendChild(buttonDel);
   });
+  const previousButton = document.createElement("button");
+  previousButton.textContent = "Cofnij do sklepu";
+  previousButton.classList.add("button__prev");
+  main.appendChild(previousButton);
+  previousButton.addEventListener("click", () => {
+    main.innerHTML = "";
+    renderListOfProducts();
+  });
   console.log(
     "Wartość koszyka " +
       productsInCart.reduce((acc, currentVal) => {
         return acc.price + currentVal.price;
       })
   );
-});
+};
+cartSummary.addEventListener("click", renderCartInMainComponent);
 const addToCart = (name, price) => {
   //   console.log(name, +price, "działa");
   price = +price;
@@ -84,29 +94,33 @@ const addToCart = (name, price) => {
 
   renderProductsInCart();
 };
-productList.forEach((item) => {
-  // const div = document.createElement("div");
-  // div.classList.add("product");
-  // const productName = document.createElement("h3");
-  // productName.classList.add("product__name");
-  // productName.textContent = item.name;
+const renderListOfProducts = () => {
+  productList.forEach((item) => {
+    // const div = document.createElement("div");
+    // div.classList.add("product");
+    // const productName = document.createElement("h3");
+    // productName.classList.add("product__name");
+    // productName.textContent = item.name;
 
-  // const productPrice = document.createElement("p");
-  // productPrice.classList.add("product__price");
-  // productPrice.textContent = item.price;
-  // const currency = document.createElement("span");
-  // currency.classList.add("product__currency");
-  // currency.textContent = "zł";
+    // const productPrice = document.createElement("p");
+    // productPrice.classList.add("product__price");
+    // productPrice.textContent = item.price;
+    // const currency = document.createElement("span");
+    // currency.classList.add("product__currency");
+    // currency.textContent = "zł";
 
-  const buttonAdd = document.createElement("button");
+    const buttonAdd = document.createElement("button");
 
-  buttonAdd.classList.add("product__add-to-cart");
-  buttonAdd.textContent = "Dodaj do koszyka";
-  buttonAdd.addEventListener("click", () => addToCart(item.name, item.price));
-  renderDivs(item).appendChild(buttonAdd);
+    buttonAdd.classList.add("product__add-to-cart");
+    buttonAdd.textContent = "Dodaj do koszyka";
+    buttonAdd.addEventListener("click", () => addToCart(item.name, item.price));
+    renderDivs(item).appendChild(buttonAdd);
 
-  // main.appendChild(div);
-  // div.appendChild(productName);
-  // div.appendChild(productPrice);
-  // div.appendChild(buttonAdd);
-});
+    // main.appendChild(div);
+    // div.appendChild(productName);
+    // div.appendChild(productPrice);
+    // div.appendChild(buttonAdd);
+  });
+};
+
+renderListOfProducts();
